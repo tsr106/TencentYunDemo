@@ -1,0 +1,143 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for-items="{{tabs}}" wx:key="{{index}}">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="width:50%;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+
+        <view class="weui-tab__panel">
+            <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{errinfo}}</view>
+            <form bindsubmit="formRegSubmit" bindreset="formReset" hidden="{{activeIndex != 0}}">
+                    <view class="weui-cells__title">登记</view>
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell weui-cell_input">
+                            <view class="{{nameerr?'weui-cell_warn weui-cell__hd ':'weui-cell__hd ' }}">
+                                <view class="weui-label">名称</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" name="name" placeholder="请输入名称"/>
+                            </view>
+                            <view wx:if="{{nameerr}}">
+                            <view class="weui-cell__ft">
+                                <icon type="warn" size="23" color="#E64340"></icon>
+                            </view>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">类型</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{type}}" name="type">
+                                    <view class="weui-select weui-select_in-select-after">{{type[typeIndex]}}</view>
+                                </picker>
+                            </view>
+                            
+                        </view>
+
+                     
+                        <view class="weui-cell weui-cell_input weui-cell_vcode">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">证件号码</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" placeholder="请输入号码" name="idnum"/>
+                            </view>
+                        </view>
+                    </view>
+
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell weui-cell_input">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">联系人</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" placeholder="对方联系人" name="contact"/>
+                            </view>
+                        
+                        </view>
+                    </view>
+
+                    <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell weui-cell_input">
+                            <view class="weui-cell__hd">
+                                <view class="weui-label">登记人</view>
+                            </view>
+                            <view class="weui-cell__bd">
+                                <input class="weui-input" placeholder="登记人姓名" name="regname"/>
+                            </view>
+                        </view>
+                    </view> 
+
+                    <view class="weui-btn-area">
+                        <button class="weui-btn" type="primary" formType="submit">登记</button>
+                    </view>
+                    <view hidden="true">    
+                        <input class="weui-input" name="uid" value="{{uid}}"/>
+                    </view>
+
+            </form>
+
+            <form bindsubmit="formUpdateSubmit" bindreset="formReset" hidden="{{activeIndex != 1}}">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input">
+                        <view class="weui-cell__hd">
+                            <view  class="weui-label">名称</view>
+                        </view>
+                        <view class="weui-cell__bd">
+                            <input name="name" class="weui-input" placeholder="广告主名称"/>
+                        </view>
+                    </view>
+                
+
+
+                </view>
+
+
+                <view class="weui-btn-area">
+                    <button class="weui-btn" type="primary" formType="submit" bindtap="showTopTips">查询</button>
+                </view>
+                <view hidden="true">    
+                        <input class="weui-input" name="uid" value="{{uid}}"/>
+                </view>
+
+                <view wx:for="{{ggzs}}">
+                    <view class="weui-form-preview">
+                        <view class="weui-form-preview__hd">
+                            <view class="weui-form-preview__label">广告主</view>
+                            <view class="weui-form-preview__value_in-hd">{{item.name}}</view>
+                        </view>
+                        <view class="weui-form-preview__bd">
+                            <view class="weui-form-preview__item">
+                                <view class="weui-form-preview__label">证件号码</view>
+                                <view class="weui-form-preview__value">{{item.idnum}}</view>
+                            </view>
+                            <view class="weui-form-preview__item">
+                                <view class="weui-form-preview__label">登记时间</view>
+                                <view class="weui-form-preview__value">{{item.regdate}}</view>
+                            </view>
+                            <view class="weui-form-preview__item">
+                                <view class="weui-form-preview__label">合同编号</view>
+                                <view class="weui-form-preview__value">{{item.tel}}</view>
+                            </view>
+                        </view>
+                        <view class="weui-form-preview__ft">
+                            <navigator  url="/example/ggz_reg/ggz_reg?id={{item.id}}" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">操作</navigator>
+                        </view>
+                    </view>
+                </view>
+                
+            </form>
+
+            
+
+
+        </view>
+    </view>
+</view>

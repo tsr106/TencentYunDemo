@@ -1,0 +1,34 @@
+{
+  "pages": [
+
+    "example/form/form",
+    "example/help/help"
+    ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "Demo",
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "backgroundColor": "#f8f8f8"
+  },
+  "tabBar": {
+    "selectedColor":"#00a1e2",
+    "list": [{
+      "pagePath": "example/form/form",
+      "iconPath":"res/img/fx.png",
+      "selectedIconPath":"res/img/fx_s.png",
+      "text": "表单"
+    }, {
+      "pagePath": "example/help/help",
+      "iconPath":"res/img/jc.png",
+      "selectedIconPath":"res/img/jc_s.png",
+      "text": "帮助"
+    }]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

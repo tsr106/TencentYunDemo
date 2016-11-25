@@ -1,0 +1,29 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">小助君公众号广告监测系统</view>
+        <view class="page__desc">轻松监测公众号广告是否违法，帮助你解决法律责任</view>
+    </view>
+    <view class="page__bd page__bd_spacing">
+        <view class="kind-list">
+            <block wx:for-items="{{list}}" wx:key="{{item.id}}">
+                <view class="kind-list__item">
+                    <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+                        <view class="weui-flex__item">{{item.name}}</view>
+                        <image class="kind-list__img" src="images/icon_nav_{{item.id}}.png"></image>
+                    </view>
+                    <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                        <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                            <block wx:for-items="{{item.nav}}" wx:for-item="page" wx:key="*item">
+                                <navigator url="{{page.page}}/{{page.page}}?{{page.para}}" class="weui-cell weui-cell_access">
+                                    <view class="weui-cell__bd">{{page.title}}</view>
+                                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                                </navigator>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    
+</view>
