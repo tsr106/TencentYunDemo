@@ -19,10 +19,18 @@ class Form_model extends CI_Model {
         $uinfo = $ui['data']['userInfo'];
         //根据openid查询是否已经在用户表注册
         $query = $this->db->get_where('user',array('openId'=>$uinfo['openId']));
-        $row = $query->row();
-        if(!isset($row)){
-            log_message('info', 'new user insert' . "\n");
-            $row = $this->db->insert_id('user',array('nickname'=>$uinfo['nickName'],
+        $row = '';
+        if($query){
+             log_message('error', 'id ok');
+            $row = $query->result();
+        }else{
+             log_message('error', 'id err');
+             return -1;
+        }
+        //如果不存在则插入并返回新id
+        if(sizeof($row)==0){
+            log_message('error', 'new user insert' . "\n");
+            $row = $this->db->insert('user',array('nickname'=>$uinfo['nickName'],
             'gender'=>$uinfo['gender'],
             'language'=>$uinfo['language'],
             'city'=>$uinfo['city'],
@@ -30,9 +38,10 @@ class Form_model extends CI_Model {
             'country'=>$uinfo['country'],
             'avatarUrl'=>$uinfo['avatarUrl'],
             'openId'=>$uinfo['openId']));
+            return $this->db->insert_id();
         }
-        //log_message('error', print_r($row). "\n");
-        return $row->uid;
+
+        return $row[0]->uid; 
     }
 
     public function insert($ggz){
